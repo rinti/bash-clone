@@ -7,7 +7,11 @@
 {% for quote in quote_list %}
   <div class="quote">
     <div class="meta">
-      {{ quote.user.username }} - ({{ quote.score }}) +
+      {{ quote.user.username }}
+      <a href="#">-</a>
+      (<span class="score">{{ quote.score }}</span>)
+      <a href="#">+</a>
+      <span class="id">#{{ quote.id }}</span>
     </div>
     <div class="content">
       {{ quote.quote }}
