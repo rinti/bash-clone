@@ -1,8 +1,14 @@
 $bg-color: #f7f5e6;
+$link-color: #85b2d1;
 
 body {
   background-color: $bg-color;
   font-family: Lucida, Arial;
+}
+
+a {
+  text-decoration: none;
+  color: $link-color;
 }
 
 section, header {
@@ -33,5 +39,8 @@ header {
     border-bottom: 1px dashed #f1f1f1;
     padding: 5px 0;
     margin-bottom: 10px;
+    .id {
+      float: right;
+    }
   }
 }
