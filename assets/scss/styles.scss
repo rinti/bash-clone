@@ -1,0 +1,37 @@
+$bg-color: #f7f5e6;
+
+body {
+  background-color: $bg-color;
+  font-family: Lucida, Arial;
+}
+
+section, header {
+  width: 600px;
+  margin: 0 auto;
+}
+
+header {
+  ul {
+    padding: 0;
+
+    li {
+      float: left;
+      list-style-type: none;
+      margin-right: 20px;
+    }
+  }
+  overflow: auto;
+}
+
+.quote {
+  background: #fff;
+  border-bottom: 3px solid #eee;
+  margin-bottom: 40px;
+  padding: 10px;
+
+  .meta {
+    border-bottom: 1px dashed #f1f1f1;
+    padding: 5px 0;
+    margin-bottom: 10px;
+  }
+}
