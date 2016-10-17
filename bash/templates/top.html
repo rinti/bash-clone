@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<h2>Top 100</h2>
+
+{% for quote in quote_list %}
+  {% include "_quote.html" %}
+{% endfor %}
+
+{% endblock body %}

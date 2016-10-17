@@ -10,6 +10,11 @@ class HomeView(ListView):
     template_name = 'home.html'
 
 
+class TopView(ListView):
+    queryset = Quote.objects.order_by('-score')[:100]
+    template_name = 'top.html'
+
+
 def vote(request, pk):
     vote = int(request.POST.get('vote'))
     quote = Quote.objects.get(pk=pk)
