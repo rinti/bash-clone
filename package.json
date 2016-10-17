@@ -1,0 +1,13 @@
+{
+  "name": "stroncare",
+  "version": "1.0.0",
+  "description": "bash clone",
+  "main": "index.js",
+  "author": "Andreas Bernacca",
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}
