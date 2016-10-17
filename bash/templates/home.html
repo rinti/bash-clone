@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<h2>Lite slumpade quotes:</h2>
+
+{% for quote in quote_list %}
+  <div class="quote">
+    <div class="meta">
+      {{ quote.user.username }} - ({{ quote.score }}) +
+    </div>
+    <div class="content">
+      {{ quote.quote }}
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock body %}
