@@ -13,3 +13,24 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+
+$('.vote').click(function(e) {
+  e.preventDefault();
+  var id = $(this).data('id');
+  $.post('/vote/' + id + '/', {
+    vote: $(this).data('vote')
+  }).then(function(data) {
+    $('.quote[data-id=' + id + '] .score').html(data.score);
+  })
+});

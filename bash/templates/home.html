@@ -5,12 +5,12 @@
 <h2>Lite slumpade quotes:</h2>
 
 {% for quote in quote_list %}
-  <div class="quote">
+  <div class="quote" data-id="{{quote.id}}">
     <div class="meta">
       {{ quote.user.username }}
-      <a href="#">-</a>
+      <a class="vote" data-vote="-1" data-id="{{ quote.id }}" href="#">-</a>
       (<span class="score">{{ quote.score }}</span>)
-      <a href="#">+</a>
+      <a class="vote" data-vote="1" data-id="{{ quote.id }}" href="#">+</a>
       <span class="id">#{{ quote.id }}</span>
     </div>
     <div class="content">
