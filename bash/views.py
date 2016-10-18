@@ -11,8 +11,10 @@ class HomeView(ListView):
 
 
 class TopView(ListView):
-    queryset = Quote.objects.order_by('-score')[:100]
     template_name = 'top.html'
+
+    def get_queryset(self):
+        return Quote.objects.order_by('-score')[50:100]
 
 
 def vote(request, pk):
@@ -21,7 +23,7 @@ def vote(request, pk):
     ip = get_ip(request)
 
     if not vote or vote not in [1, -1] or ip in quote.voters:
-      return HttpResponseForbidden()
+        return HttpResponseForbidden()
 
     quote.score += vote
     quote.voters.append(ip)
