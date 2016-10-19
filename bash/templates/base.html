@@ -20,7 +20,12 @@
     </ul>
   </header>
   <section id="body">
-    {% block body %}{% endblock body %}
+    {% block body_title %}{% endblock body_title %}
+    {% block body %}
+      {% for quote in quote_list %}
+        {% include "_quote.html" %}
+      {% endfor %}
+    {% endblock body %}
   </section>
 
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>

@@ -1,11 +1,7 @@
 {% extends "base.html" %}
 
-{% block body %}
+{% block body_title %}
 
 <h2>Lite slumpade quotes:</h2>
 
-{% for quote in quote_list %}
-  {% include "_quote.html" %}
-{% endfor %}
-
-{% endblock body %}
+{% endblock body_title %}
