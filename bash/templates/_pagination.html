@@ -1,0 +1,17 @@
+{% if is_paginated %}
+  <div class="pagination">
+    <span class="page-links">
+      {% if page_obj.has_previous %}
+        <a href="{% url 'user' user.pk %}?page={{ page_obj.previous_page_number }}">Föregående</a>
+      {% endif %}
+
+      <span class="page-current">
+        Sida {{ page_obj.number }} av {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="{% url 'user' user.pk %}?page={{ page_obj.next_page_number }}">Nästa</a>
+      {% endif %}
+    </span>
+  </div>
+{% endif %}

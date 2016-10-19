@@ -31,4 +31,10 @@ header {
     .quote .meta .id {
       float: right; }
 
+.pagination {
+  text-align: center;
+  margin-bottom: 40px; }
+  .pagination .page-links {
+    display: inline-block; }
+
 /*# sourceMappingURL=styles.css.map */

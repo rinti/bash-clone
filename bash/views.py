@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden, JsonResponse
 from django.views.generic import ListView
 
@@ -10,11 +11,28 @@ class HomeView(ListView):
     template_name = 'home.html'
 
 
-class TopView(ListView):
+class TopListView(ListView):
     template_name = 'top.html'
 
     def get_queryset(self):
         return Quote.objects.order_by('-score')[50:100]
+
+
+class UserListView(ListView):
+    template_name = 'top.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Quote.objects.from_user(
+            int(self.kwargs.get('pk'))
+        ).order_by('-score')
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context.update({
+            'user': User.objects.get(pk=self.kwargs.get('pk'))
+        })
+        return context
 
 
 def vote(request, pk):

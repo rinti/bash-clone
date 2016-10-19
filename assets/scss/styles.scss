@@ -44,3 +44,12 @@ header {
     }
   }
 }
+
+.pagination {
+  text-align: center;
+  margin-bottom: 40px;
+
+  .page-links {
+    display: inline-block;
+  }
+}
