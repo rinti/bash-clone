@@ -3,6 +3,7 @@ import json
 from django.test import TestCase
 from django.test import Client
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 from .models import Quote
 
@@ -15,37 +16,44 @@ class QuoteTestCase(TestCase):
         self.c = Client()
 
     def test_invalid_votes(self):
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': 0})
+        url = reverse('vote', args=[self.quote.id])
+
+        response = self.c.post(url, {'vote': 0})
         self.assertEqual(response.status_code, 403)
 
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': -2})
+        response = self.c.post(url, {'vote': -2})
         self.assertEqual(response.status_code, 403)
 
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': 2})
+        response = self.c.post(url, {'vote': 2})
         self.assertEqual(response.status_code, 403)
 
     def test_valid_votes(self):
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': 1})
+        url = reverse('vote', args=[self.quote.id])
+
+        response = self.c.post(url, {'vote': 1})
         self.assertEqual(response.status_code, 200)
 
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': -1}, REMOTE_ADDR='0.0.1.1')
+        response = self.c.post(url, {'vote': -1}, REMOTE_ADDR='0.0.1.1')
         self.assertEqual(response.status_code, 200)
 
     def test_user_cannot_vote_twice(self):
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': -1}, REMOTE_ADDR='1.1.1.1')
+        url = reverse('vote', args=[self.quote.id])
+
+        response = self.c.post(url, {'vote': -1}, REMOTE_ADDR='1.1.1.1')
         self.assertEqual(response.status_code, 200)
 
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': -1}, REMOTE_ADDR='1.1.1.1')
+        response = self.c.post(url, {'vote': -1}, REMOTE_ADDR='1.1.1.1')
         self.assertEqual(response.status_code, 403)
 
     def test_voting_affects_score(self):
+        url = reverse('vote', args=[self.quote.id])
         self.assertEqual(self.quote.score, 0)
 
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': -1}, REMOTE_ADDR='12.2.6.8')
+        response = self.c.post(url, {'vote': -1}, REMOTE_ADDR='12.2.6.8')
         score = json.loads(response.content.decode('utf-8'))['score']
         self.assertEqual(score, -1)
 
-        response = self.c.post('/vote/{}/'.format(self.quote.id), {'vote': 1})
+        response = self.c.post(url, {'vote': 1})
         score = json.loads(response.content.decode('utf-8'))['score']
         self.assertEqual(score, 0)
 
